@@ -1,0 +1,326 @@
+#addition
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+  int x_size,y_size,z_size;
+  int x[100],y[100],z[100];
+
+  cout<<"enter number of first signal:";
+  cin>>x_size;
+  
+   cout<<"enter number of second signal";
+   cin>>y_size;
+
+   if (x_size>y_size)
+     z_size=x_size;
+   else
+    z_size=y_size;
+    
+    for(int i=0;i<z_size;i++)
+    {
+        x[i]=0;
+        y[i]=0;
+        z[i]=0;
+    }
+  
+  cout<< "enter the sample of first signal:";
+  for(int i=0;i<x_size;i++)
+  {
+
+    cin>>x[i];
+  }
+
+cout<< "enter the sample of second signal:";
+  for(int i=0;i<y_size;i++)
+  {
+    
+    cin>>y[i];
+  }
+
+
+for(int i=0;i<z_size;i++)
+{
+    z[i]= x[i]+y[i];
+}
+
+
+
+cout<< "\nresultatnt signal sample:";
+for(int i=0;i<z_size;i++)
+   cout<< z[i]<< " ";
+
+
+    return 0;
+
+
+}
+
+#amplitude
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int x[100],y[100],n,k;
+
+    cout<< "enter the number of sample:";
+    cin>>n;
+
+    cout<< "eneter the sample of signals:";
+    for(int i=0;i<n;i++)
+    {
+        cin>>x[i];
+    }
+    
+    cout<< "enter scaling factor:";
+    cin>>k;
+
+    for(int i=0;i<n;i++)
+    {
+        y[i]=k*x[i];
+    }
+    
+    cout<< "\nscaled signal:";
+    for(int i=0;i<n;i++)
+    {
+        cout<<y[i]<<" ";
+    }
+
+    return 0;
+
+
+
+}
+
+#convolution
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+   int x_size,y_size,h_size;
+   int x_o,y_o,h_o;
+
+   cout<< "enter num of sample of x(n)";
+   cin>> x_size;
+   
+    cout<< "enter num of sample of h(n)";
+    cin>> h_size;
+
+    y_size = x_size + h_size - 1;
+    int x[y_size], h[y_size], y[y_size];
+
+    for(int i=0;i<y_size;i++)
+    {
+        x[i]=0;
+        y[i]=0;
+        h[i]=0;
+    }
+   cout<< "enter sample values of x(n):";
+   for(int i=0;i<x_size;i++)
+     cin>> x[i];
+
+    cout<< "enter sample values of h(n):";
+    for(int i=0;i<h_size;i++)
+     cin>> h[i]; 
+
+    cout<< "enter origin of x(n):";
+    cin>> x_o;
+    cout<< "enter origin of h(n):";
+    cin>> h_o;
+
+    y_o = x_o+ h_o;
+
+    for(int i=0;i<y_size;i++)
+    {
+        y[i]=0;
+        for(int j=0;j<=i;j++)
+          y[i]+= (x[j] * h[i-j]);
+    }
+
+    cout<< "\nsample values of output:";
+    for(int i=0;i<y_size;i++)
+      cout<< y[i] << " ";
+
+    cout<< "\norigin point of output:" << y_o <<endl;
+    return 0;  
+
+
+
+}
+
+
+#circle
+#include<iostream>
+using namespace std;
+
+int main()
+{   
+    int n;
+    cout<< "enetr number of sample:";
+    cin>>n;
+
+    int x[100],y[100],h[100];
+
+    cout<< "enter first signal:";
+    for(int i=0;i<n;i++)
+    {
+        cin>>x[i];
+    }
+
+    cout<< "enter second siganl value:";
+    for(int i=0;i<n;i++)
+    {
+        cin>> h[i];
+    }
+
+    for(int i=0;i<n;i++)
+    {
+        y[i]=0;
+
+        for(int j=0;j<n;j++)
+        {
+            y[i]+= x[j]*h[(i-j+n)%n];
+        }
+    }
+
+    cout<< "circular convolution:";
+    for(int i=0;i<n;i++)
+    {
+        cout<< y[i]<< " ";
+    }
+    return 0;
+
+
+}
+
+//matrix
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int n;
+
+    cout<< "enter number of samples:";
+    cin>>n;
+    
+    if(n<=0 || n> 100)
+    {
+        cout<< "invalid sample size";
+        return 0;
+    }
+
+    int x[100],y[100],h[100];
+    int a[100][100];
+
+    cout<< "enter first signal:";
+    for(int i=0;i<n;i++)
+      cin>>x[i];
+    cout<< "enter second signal:";
+    for(int i=0;i<n;i++)
+      cin>>h[i];
+      
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            a[i][j]=h[(i-j+n)%n];
+        }
+    }  
+
+    for(int i=0;i<n;i++)
+    {
+        y[i]=0;
+        for(int j=0;j<n;j++)
+        {
+            y[i]+=x[j]*a[i][j];
+        }
+    }
+
+    cout<< "circular convolution:";
+    for(int i=0;i<n;i++)
+      cout<< y[i]<< " ";
+    
+   return 0;
+
+
+
+}
+
+//deconvolution
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int i, j, x_size, y_size, h_size;
+    int sum, x_o, y_o, h_o;
+
+    cout << "Enter number of output samples: ";
+    cin >> y_size;
+
+    cout << "Enter number of impulses: ";
+    cin >> h_size;
+
+    if (y_size < h_size || h_size <= 0) {
+        cout << "Invalid sample sizes!";
+        return 0;
+    }
+
+    x_size = y_size - h_size + 1;
+
+    int y[y_size], h[h_size], x[x_size];
+
+    cout << "Enter output sequences: ";
+    for (i = 0; i < y_size; i++) {
+        cin >> y[i];
+    }
+
+    cout << "Enter impulse sequences: ";
+    for (i = 0; i < h_size; i++) {
+        cin >> h[i];
+    }
+
+    cout << "Enter origin point of y(n): ";
+    cin >> y_o;
+
+    cout << "Enter origin point of h(n): ";
+    cin >> h_o;
+
+    x_o = y_o - h_o;
+
+    if (h[0] == 0) {
+        cout << "Deconvolution is not possible with h[0] = 0.";
+        return 0;
+    }
+
+    for (int i = 0; i < x_size; i++)
+{
+    sum = 0;
+
+    for (int j = 0; j < i; j++)
+    {
+        if (i - j < h_size)
+            sum += x[j] * h[i - j];
+    }
+
+    x[i] = (y[i] - sum) / h[0];
+}
+
+    cout << "\nInput sample values: ";
+    for (i = 0; i < x_size; i++) {
+        cout << x[i] << "  ";
+    }
+
+    cout << "\nOrigin point of input: " << x_o << endl;
+
+    return 0;
+}
+
