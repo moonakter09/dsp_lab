@@ -324,3 +324,35 @@ int main() {
     return 0;
 }
 
+//odd-even
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    float x[100], even[100], odd[100];
+
+    cout << "Enter number of samples: ";
+    cin >> n;
+
+    cout << "Enter samples: ";
+    for(int i = 0; i < n; i++) {
+        cin >> x[i];
+    }
+
+    for(int i = 0; i < n; i++) {
+        even[i] = (x[i] + x[n-1-i]) / 2;
+        odd[i] = (x[i] - x[n-1-i]) / 2;
+    }
+
+    cout << "Even component: ";
+    for(int i = 0; i < n; i++)
+        cout << even[i] << " ";
+
+    cout << "\nOdd component: ";
+    for(int i = 0; i < n; i++)
+        cout << odd[i] << " ";
+
+    return 0;
+}
+
